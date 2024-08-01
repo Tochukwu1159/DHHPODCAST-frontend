@@ -1,0 +1,57 @@
+/* updateCategoryForm.css */
+
+/* Form container */
+.update-category-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Form fields */
+  .update-category-form div {
+    margin-bottom: 15px;
+  }
+  
+  .update-category-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .update-category-form input[type="text"],
+  .update-category-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .update-category-form textarea {
+    min-height: 100px;
+  }
+  
+  .update-category-form input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Submit button */
+  .update-category-form button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .update-category-form button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  

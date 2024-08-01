@@ -1,0 +1,103 @@
+// import React, { useState } from 'react';
+// import axios from 'axios';
+// import { useCreatePodcastCategories } from '../api/podcastCategories';
+
+// import './AddPodcastCategory.css';
+// import { useGetAllPlans } from '../api/Plans';
+// import { useParams } from 'react-router-dom';
+
+// function UpdatePodcastCategory() {
+//     const {categoryId} = useParams()
+// const {mutate: updatePodcast, isPending: podcastPending} = UpdatePodcastCategory(categoryId)
+// const { data: allPlans, isLoading: plansLoading, isError: plansError } = useGetAllPlans();
+
+
+
+// console.log(allPlans, "allPlans")
+
+//   const [formData, setFormData] = useState({
+//     name: '',
+//     userPlan: '',
+//     imageFile: null, // Initialize imageFile as null
+//   });
+
+ 
+//   const handleChange = (e) => {
+//     const { name, value, files } = e.target;
+
+//     setFormData((prevFormData) => ({
+//       ...prevFormData,
+//       [name]: name === 'imageFile' ? files[0] : value,
+//     }));
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+  
+//     try {
+//       await updatePodcast(formData);
+//       setFormData({
+//         name: '',
+//         userPlan: '',
+//         imageFile: null,
+//       });
+//     } catch (error) {
+//       console.error('Error adding category:', error);
+//     }
+//   };
+//   return (
+//     <div className="add-podcast-category-container">
+//       <h1>Update Podcast Category</h1>
+//       <form className="add-podcast-category-form" onSubmit={handleSubmit}>
+//         <div className="form-group">
+//           <label htmlFor="name">Name:</label>
+//           <input
+//             type="text"
+//             id="name"
+//             name="name"
+//             value={formData.name}
+//             onChange={handleChange}
+//             required
+//           />
+//         </div>
+//         <div className="form-group">
+//           <label htmlFor="userPlan">Subscription Plan:</label>
+//           <select
+//             id="userPlan"
+//             name="userPlan"
+//             value={formData.userPlan}
+//             onChange={handleChange}
+//             required
+//           >
+//             <option value="">Select Plan</option>
+//             {plansLoading ? (
+//               <option disabled>Loading...</option>
+//             ) : plansError ? (
+//               <option disabled>Error loading plans</option>
+//             ) : (
+//               allPlans.map((plan) => (
+//                 <option key={plan.id} value={plan.id}>
+//                   {plan.name}
+//                 </option>
+//               ))
+//             )}
+//           </select>
+//         </div>
+//         <div className="form-group">
+//           <label htmlFor="imageFile">Cover Photo:</label>
+//           <input
+//             type="file"
+//             id="imageFile"
+//             name="imageFile"
+//             accept="image/*" // Specify accepted file types
+//             onChange={handleChange}
+//             required
+//           />
+//         </div>
+//         <button type="submit"> Category Updated</button>
+//       </form>
+//     </div>
+//   );
+// }
+
+// export default UpdatePodcastCategory;
