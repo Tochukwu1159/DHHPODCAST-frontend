@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { darkTheme, lightTheme } from './utils/Themes.js'
 import Signup from '../src/components/Signup.jsx';
 import Signin from '../src/components/Signin.jsx';
-import OTP from '../src/components/OTP.jsx'
 import Navbar from '../src/components/Navbar.jsx';
 import Menu from '../src/components/Menu.jsx';
 import Dashboard from '../src/pages/Dashboard.jsx'
@@ -11,9 +10,8 @@ import ToastMessage from './components/ToastMessage.jsx';
 import Search from '../src/pages/Search.jsx';
 import Favourites from '../src/pages/Favourites.jsx';
 import Profile from '../src/pages/Profile.jsx';
-import Upload from '../src/components/Upload.jsx';
 import DisplayPodcasts from '../src/pages/DisplayPodcasts.jsx';
-import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import styled from 'styled-components';
 import AudioPlayer from "./components/AudioPlayer.jsx";
@@ -24,7 +22,6 @@ import AddPodcastCategory from "./mockPage/AddPodcastCategory.js";
 import AddPodcastForm from "./mockPage/AddPodcastForm.js";
 import PlanForm from "./mockPage/PlanForm.jsx";
 import AddEpisodeForm from "./mockPage/AddEpisode.jsx";
-import UpdatePodcastCategory from "./mockPage/UpdateCategory.jsx";
 // import PodcastList from "./mockPage/PodcastList.jsx";
 import PodcastCategoryList from "./mockPage/PodcastCategoryList.jsx";
 import SinglePodcastCategory from "./mockPage/SinglePodcastCategory.jsx";

@@ -11,15 +11,15 @@ import {
   import React, { useState, useEffect } from "react";
   import styled from "styled-components";
   import { useTheme } from "styled-components";
-  import Google from "../Images/google.webp";
+  // import Google from "../Images/google.webp";
   import { IconButton, Modal } from "@mui/material";
-  import { loginFailure, loginStart, loginSuccess } from "../redux/userSlice";
+  import { loginFailure, loginSuccess } from "../redux/userSlice";
   import { openSnackbar } from "../redux/snackbarSlice";
   import { useDispatch } from "react-redux";
   import axios from "axios";
   import CircularProgress from "@mui/material/CircularProgress";
   import validator from "validator";
-  import { googleSignIn, signUp } from "../api/index";
+  import { googleSignIn } from "../api/index";
   import OTP from "./OTP";
   import { useGoogleLogin } from "@react-oauth/google";
 import { closeSignin, openSignin } from "../redux/setSigninSlice";

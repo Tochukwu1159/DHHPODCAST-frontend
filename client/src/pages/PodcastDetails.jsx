@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { CircularProgress, IconButton } from '@mui/material';
-import { favoritePodcast, getPodcastById, getUsers } from '../api';
+// import { favoritePodcast, getPodcastById, getUsers } from '../api';
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 import Episodecard from '../components/Episodecard';
-import { openSnackbar } from '../redux/snackbarSlice';
-import Avatar from '@mui/material/Avatar';
+// import { openSnackbar } from '../redux/snackbarSlice';
+// import Avatar from '@mui/material/Avatar';
 import { format } from 'timeago.js';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import HeadphonesIcon from '@mui/icons-material/Headphones';
@@ -23,15 +23,6 @@ overflow-y: scroll;
 display: flex;
 flex-direction: column;
 gap: 20px;
-`;
-
-const Top = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  @media (max-width: 768px) {
-    flex-direction: column; 
-  }
 `;
 
 const Image = styled.img`
@@ -63,22 +54,6 @@ const Description = styled.div`
   font-weight: 500;
   color: ${({ theme }) => theme.text_secondary};
 `;
-
-const Tags = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  flex-wrap: wrap;
-`;
-
-const Tag = styled.div`
-  background-color: ${({ theme }) => theme.text_secondary + 50};
-  color: ${({ theme }) => theme.text_primary};
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  `;
-
 
 const Episodes = styled.div`
   display: flex;
@@ -118,20 +93,10 @@ align-items: center;
 height: 100%;
 width: 100%;
 `
-const Creator = styled.div`
-color: ${({ theme }) => theme.text_secondary};
-font-size: 12px;
-`
 const CreatorContainer = styled.div`
 display: flex;
 flex-direction: row;
 align-items: center;
-`
-const CreatorDetails = styled.div`
-display: flex;
-flex-direction: row;
-align-items: center;
-gap: 8px;
 `
 const Views = styled.div`
 color: ${({ theme }) => theme.text_secondary};
@@ -155,8 +120,8 @@ const PodcastDetails = () => {
   const [favouriteId, setFavouriteId] = useState(null)
   const { data: episodes, loading, refetch } = useGetEpisodesByPodcastId(id);
 
-const {mutate: addToFavorite, isPending: podcastPending} = useAddToFavorite(favouriteId) 
-const {mutate: addToView, isPending: viewPending} = useCreatePodcastView(favouriteId) 
+const {mutate: addToFavorite} = useAddToFavorite(favouriteId) 
+const {mutate: addToView} = useCreatePodcastView(favouriteId) 
 
 
 const handleClick = (id) => {

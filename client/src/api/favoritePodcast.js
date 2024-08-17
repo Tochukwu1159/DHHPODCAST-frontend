@@ -3,7 +3,6 @@ import {
   useMutation,
   useQuery,
 } from "@tanstack/react-query";
-import { axiosInstance } from "./index1";
 import toast from "react-hot-toast";
 import { queryClient } from "..";
 import { token } from "./index1";

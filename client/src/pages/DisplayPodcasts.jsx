@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { getPodcastByCategory, getMostPopularPodcast } from '../api/index.js';
+// import { getPodcastByCategory, getMostPopularPodcast } from '../api/index.js';
 import styled from 'styled-components';
 import { PodcastCard } from '../components/PodcastCard.jsx';
 import { useDispatch } from "react-redux";
-import { openSnackbar } from "../redux/snackbarSlice";
-import { displayPodcastFailure } from '../redux/userSlice.jsx';
+// import { openSnackbar } from "../redux/snackbarSlice";
+// import { displayPodcastFailure } from '../redux/userSlice.jsx';
 import { CircularProgress } from '@mui/material';
-import { useGetPodcastByName } from '../api/podcast.js';
+// import { useGetPodcastByName } from '../api/podcast.js';
 import { useGetPodcastByCategoryName } from '../api/podcastCategories.js';
 
 const DisplayMain = styled.div`

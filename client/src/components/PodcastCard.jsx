@@ -1,14 +1,14 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import styled from 'styled-components';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState } from 'react';
 import { IconButton } from '@mui/material';
-import { favoritePodcast } from '../api';
+// import { favoritePodcast } from '../api';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { openSignin } from '../redux/setSigninSlice';
+// import { openSignin } from '../redux/setSigninSlice';
 import HeadphonesIcon from '@mui/icons-material/Headphones';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { useAddToFavorite } from '../api/favoritePodcast';

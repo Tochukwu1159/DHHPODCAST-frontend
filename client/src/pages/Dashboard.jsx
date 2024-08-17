@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { getMostPopularPodcast } from '../api/index';
-import { getPodcastByCategory } from '../api';
+// import { getMostPopularPodcast } from '../api/index';
+// import { getPodcastByCategory } from '../api';
 import { PodcastCard } from '../components/PodcastCard.jsx'
 import { getUsers } from '../api/index';
 import { Link } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
-import { useAddToFavorite, useGetAllFavoritePodcast } from '../api/favoritePodcast';
-import { useGetPodcastByName } from '../api/podcast';
+import { useGetAllFavoritePodcast } from '../api/favoritePodcast';
+// import { useGetPodcastByName } from '../api/podcast';
 import { useGetPodcastByCategoryName } from '../api/podcastCategories';
 
 const DashboardMain = styled.div`
@@ -77,38 +77,51 @@ align-items: center;
 height: 100%;
 width: 100%;
 `
-const DisplayNo = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-height: 100%;
-width: 100%;
-color: ${({ theme }) => theme.text_primary};
-`
+// const DisplayNo = styled.div`
+// display: flex;
+// justify-content: center;
+// align-items: center;
+// height: 100%;
+// width: 100%;
+// color: ${({ theme }) => theme.text_primary};
+// `
 
 const Dashboard = ({ setSignInOpen }) => {
-  const [mostPopular, setMostPopular] = useState([]);
+  // const [mostPopular, setMostPopular] = useState([]);
   const [user, setUser] = useState();
 
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
   //user
   const { currentUser } = useSelector(state => state.user);
 
-  const { data: favoritePodcast, isLoading, isError: favError, refetch:favRefetch } = useGetAllFavoritePodcast();
-  const { data: comedy, isLoading: isLoad, isError:comedyError, refetch: comRefetch } = useGetPodcastByCategoryName("gfgvxhgvxhgvsx");
-  const { data: crime, isLoading: loadingCirme, crimeError, refetch:criRefetch  } = useGetPodcastByCategoryName("Crime");
-  const { data: culture, isLoading: loadingCulture, cultureError, refetch:culRefetch  } = useGetPodcastByCategoryName("Culture");
-  const { data: development, isLoading: loadingDevelopment, devError, refetch:devRefetch  } = useGetPodcastByCategoryName("Development");
-  const { data: education, isLoading: loadingEducation, educationError, refetch:eduRefetch  } = useGetPodcastByCategoryName("Education");
-  const { data: health, isLoading: loadingHealth, healthError, refetch:heaRefetch  } = useGetPodcastByCategoryName("Health");
-  const { data: history, isLoading: loadingHistory, historyError,refetch:hisRefetch  } = useGetPodcastByCategoryName("History");
-  const { data: news, isLoading: loadingNews, newsError, refetch:newRefetch  } = useGetPodcastByCategoryName("News");
-  const { data: religion, isLoading: loadingReligoin, religiousError,refetch:relRefetch  } = useGetPodcastByCategoryName("Religion");
-  const { data: science, isLoading: loadingScience, scienceError, refetch:sciRefetch  } = useGetPodcastByCategoryName("Science");
-  const { data: sports, isLoading: loadingSports, sportsError, refetch:spoRefetch  } = useGetPodcastByCategoryName("Sports");
+  // const { data: favoritePodcast, isLoading, isError: favError, refetch:favRefetch } = useGetAllFavoritePodcast();
+  // const { data: comedy, isLoading: isLoad, isError:comedyError, refetch: comRefetch } = useGetPodcastByCategoryName("gfgvxhgvxhgvsx");
+  // const { data: crime, isLoading: loadingCirme, crimeError, refetch:criRefetch  } = useGetPodcastByCategoryName("Crime");
+  // const { data: culture, isLoading: loadingCulture, cultureError, refetch:culRefetch  } = useGetPodcastByCategoryName("Culture");
+  // const { data: development, isLoading: loadingDevelopment, devError, refetch:devRefetch  } = useGetPodcastByCategoryName("Development");
+  // const { data: education, isLoading: loadingEducation, educationError, refetch:eduRefetch  } = useGetPodcastByCategoryName("Education");
+  // const { data: health, isLoading: loadingHealth, healthError, refetch:heaRefetch  } = useGetPodcastByCategoryName("Health");
+  // const { data: history, isLoading: loadingHistory, historyError,refetch:hisRefetch  } = useGetPodcastByCategoryName("History");
+  // const { data: news, isLoading: loadingNews, newsError, refetch:newRefetch  } = useGetPodcastByCategoryName("News");
+  // const { data: religion, isLoading: loadingReligoin, religiousError,refetch:relRefetch  } = useGetPodcastByCategoryName("Religion");
+  // const { data: science, isLoading: loadingScience, scienceError, refetch:sciRefetch  } = useGetPodcastByCategoryName("Science");
+  // const { data: sports, isLoading: loadingSports, sportsError, refetch:spoRefetch  } = useGetPodcastByCategoryName("Sports");
+
+  const { data: favoritePodcast, refetch:favRefetch } = useGetAllFavoritePodcast();
+  const { data: comedy,  refetch: comRefetch } = useGetPodcastByCategoryName("gfgvxhgvxhgvsx");
+  const { data: crime,  refetch:criRefetch  } = useGetPodcastByCategoryName("Crime");
+  const { data: culture, refetch:culRefetch  } = useGetPodcastByCategoryName("Culture");
+  const { data: development, refetch:devRefetch  } = useGetPodcastByCategoryName("Development");
+  const { data: education, refetch:eduRefetch  } = useGetPodcastByCategoryName("Education");
+  const { data: health,  refetch:heaRefetch  } = useGetPodcastByCategoryName("Health");
+  const { data: history,refetch:hisRefetch  } = useGetPodcastByCategoryName("History");
+  const { data: news,  refetch:newRefetch  } = useGetPodcastByCategoryName("News");
+  const { data: religion, refetch:relRefetch  } = useGetPodcastByCategoryName("Religion");
+  const { data: science, refetch:sciRefetch  } = useGetPodcastByCategoryName("Science");
+  const { data: sports,  refetch:spoRefetch  } = useGetPodcastByCategoryName("Sports");
   
-  const {mutate: addToFavorite, isPending: podcastPending} = useAddToFavorite()
+  // const {mutate: addToFavorite, isPending: podcastPending} = useAddToFavorite()
  
   useEffect(() => {
    
@@ -116,12 +129,12 @@ const Dashboard = ({ setSignInOpen }) => {
 
 
   const token = localStorage.getItem("podstreamtoken");
-  const getUser = async () => {
-    await getUsers(token).then((res) => {
-      setUser(res.data)
-    }).then((error) => {
-      console.log('there is error', error);    });
-  }
+  // const getUser = async () => {
+  //   await getUsers(token).then((res) => {
+  //     setUser(res.data)
+  //   }).then((error) => {
+  //     console.log('there is error', error);    });
+  // }
 
   return (
     <DashboardMain>

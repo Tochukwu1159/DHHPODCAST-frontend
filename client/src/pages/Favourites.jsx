@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
 import { PodcastCard } from '../components/PodcastCard';
-import { getUsers } from '../api/index';
-import { CircularProgress } from '@mui/material';
+// import { getUsers } from '../api/index';
+// import { CircularProgress } from '@mui/material';
 import { useGetAllFavoritePodcast } from '../api/favoritePodcast';
 
 const Container = styled.div`
@@ -34,30 +34,30 @@ padding: 18px 6px;
 }
 `
 
-const Loader = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-height: 100%;
-width: 100%;
-`
+// const Loader = styled.div`
+// display: flex;
+// justify-content: center;
+// align-items: center;
+// height: 100%;
+// width: 100%;
+// `
 
-const DisplayNo = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-height: 100%;
-width: 100%;
-color: ${({ theme }) => theme.text_primary};
-`
+// const DisplayNo = styled.div`
+// display: flex;
+// justify-content: center;
+// align-items: center;
+// height: 100%;
+// width: 100%;
+// color: ${({ theme }) => theme.text_primary};
+// `
 
 
 const Favourites = () => {
-  const [user, setUser] = useState();
-  const [Loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
+  // const [user, setUser] = useState();
+  // const [Loading, setLoading] = useState(false);
+  // const dispatch = useDispatch();
   //user
-  const { currentUser } = useSelector(state => state.user);
+  // const { currentUser } = useSelector(state => state.user);
 
   // const token = localStorage.getItem("podstreamtoken");
   // const getUser = async () => {
@@ -81,7 +81,7 @@ const Favourites = () => {
   //   getuser();
   // }, [currentUser]);
 
-  const {data: favoritePodcast, isLoading:favoritePodcastLoading, error:favoritePodcastError} = useGetAllFavoritePodcast()
+  const {data: favoritePodcast} = useGetAllFavoritePodcast()
  
 
   const podcastData = favoritePodcast?.podcast;

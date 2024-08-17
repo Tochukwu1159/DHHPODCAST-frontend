@@ -24,7 +24,7 @@ color: ${({ theme }) => theme.text_primary};
 font-size:34px;
 font-weight:500;
 `
-const Profile_email = styled.div`
+const ProfileEmail = styled.div`
 color:#2b6fc2;
 font-size:14px;
 font-weight:400;
@@ -47,16 +47,16 @@ const Topic = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
-const Span = styled.span`
-  color: ${({ theme }) => theme.text_secondary};
-  font-size: 16px;
-  font-weight: 400;
-  cursor: pointer;
-  color: ${({ theme }) => theme.primary};
-  &:hover{
-    transition: 0.2s ease-in-out;
-  }
-  `;
+// const Span = styled.span`
+//   color: ${({ theme }) => theme.text_secondary};
+//   font-size: 16px;
+//   font-weight: 400;
+//   cursor: pointer;
+//   color: ${({ theme }) => theme.primary};
+//   &:hover{
+//     transition: 0.2s ease-in-out;
+//   }
+//   `;
 const Podcasts = styled.div`
 display: flex;
 flex-wrap: wrap;
@@ -145,7 +145,7 @@ const Profile = () => {
 
                 <ProfileContainer>
                     <ProfileName>{name}</ProfileName>
-                    <Profile_email>Email: {user?.email}</Profile_email>
+                    <ProfileEmail>Email: {user?.email}</ProfileEmail>
                 </ProfileContainer>
             </UserDetails>
             {currentUser && user?.podcasts.length > 0 &&

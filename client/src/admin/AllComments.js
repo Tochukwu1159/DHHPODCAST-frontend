@@ -17,17 +17,10 @@ import {
 import {
   QueryClient,
   QueryClientProvider,
-  useMutation,
-  useQuery,
-  useQueryClient,
 } from '@tanstack/react-query';
-import {  usStates } from './makeData';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useCreateUser, useDeleteUser, useGetAllUsers, useUpdateUser } from '../api/user';
-import {useCreateEpisode, useDeleteCommentById} from "../api/comments"
-import { useAllGetPodcast } from '../api/podcast';
-import { useGetPodcastCategories } from '../api/podcastCategories';
+import { useCreateUser, useDeleteUser, useUpdateUser } from '../api/user';
 import { useGetAllComments } from '../api/comments';
 
 

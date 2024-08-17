@@ -1,24 +1,24 @@
-import React, { useState , useEffect} from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+// import axios from 'axios';
 import styled from 'styled-components'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { DefaultCard } from '../components/DefaultCard.jsx';
 // import { Category } from '../utils/Data.js';
-import { searchPodcast } from '../api/index.js';
-import { PodcastCard } from '../components/PodcastCard.jsx';
+// import { searchPodcast } from '../api/index.js';
+// import { PodcastCard } from '../components/PodcastCard.jsx';
 import TopResult from '../components/TopResult.jsx';
 import MoreResult from '../components/MoreResult.jsx';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { openSnackbar } from '../redux/snackbarSlice.jsx';
+// import { useDispatch } from 'react-redux';
+// import { openSnackbar } from '../redux/snackbarSlice.jsx';
 import { CircularProgress } from '@mui/material';
-import { Color } from '../utils/Data.js';
+// import { Color } from '../utils/Data.js';
 import { useGetPodcastCategories } from '../api/podcastCategories.js';
-import { useGetAllFavoritePodcast, useGetPodcast } from '../api/favoritePodcast.js';
-import { getAllEpisodes, useGetAllEpisodes } from '../api/episodes.js';
-import { useAllGetPodcast, useGetPodcastByName, useGetPodcastByTitle } from '../api/podcast.js';
-import { useGetAllPodcastView } from '../api/podcastViews.js';
-import { useGetAllUsers } from '../api/user.js';
+// import { useGetAllFavoritePodcast, useGetPodcast } from '../api/favoritePodcast.js';
+// import {  useGetAllEpisodes } from '../api/episodes.js';
+import {  useGetPodcastByTitle } from '../api/podcast.js';
+// import { useGetAllPodcastView } from '../api/podcastViews.js';
+// import { useGetAllUsers } from '../api/user.js';
 
 const SearchMain = styled.div`
 padding: 20px 30px;
@@ -62,7 +62,7 @@ const SearchedCards = styled.div`
 const Categories = styled.div`
     margin: 20px 10px;
 `;
-const Search_whole = styled.div`
+const SearchWhole = styled.div`
  max-width: 700px;
  display:flex;
  width: 100%;
@@ -107,20 +107,20 @@ color: ${({ theme }) => theme.text_primary};
 
 const Search = () => {
 
-    const { data: Category, isLoading, isError: error } = useGetPodcastCategories();
-    const {data: allEpisodes, isLoading:episodeLoading, error:episodeError} = useGetAllEpisodes()
+    const { data: Category } = useGetPodcastCategories();
+    // const {data: allEpisodes, isLoading:episodeLoading, error:episodeError} = useGetAllEpisodes()
 
-     const {data: allPodcast, isLoading:podcastLoading, error:podcastError} = useAllGetPodcast() 
+    //  const {data: allPodcast, isLoading:podcastLoading, error:podcastError} = useAllGetPodcast() 
 
-    const {data: allPodcastViews, isLoading:podcastLoadingViews, error:podcastErrorViews} = useGetAllPodcastView()
+    // const {data: allPodcastViews, isLoading:podcastLoadingViews, error:podcastErrorViews} = useGetAllPodcastView()
 
-    const {data: allUsers, isLoading:usersLoading, error:usersError} = useGetAllUsers()
+    // const {data: allUsers, isLoading:usersLoading, error:usersError} = useGetAllUsers()
    
     
     
  
     const [searched, setSearched] = useState("");
-    const [searchedPodcasts, setSearchedPodcasts] = useState([]);
+    // const [searchedPodcasts, setSearchedPodcasts] = useState([]);
     // const [categories, setCategories] = useState([]);
         // const [Category, setCategory] = useState([]);
 
@@ -148,19 +148,19 @@ const Search = () => {
         // setLoading(false);
     }
 
-    const { data: newPodcastByName, isLoading: loading, isError, refetch: podcastRefetch } = useGetPodcastByTitle(searched);
+    const { data: newPodcastByName, isLoading: loading, refetch: podcastRefetch } = useGetPodcastByTitle(searched);
     const podcastByName= newPodcastByName?.podcast
 
     return (
         <SearchMain>
             <div style={{display: 'flex', justifyContent: 'center', width: '100%'}}>
-            <Search_whole>
+            <SearchWhole>
                 <SearchOutlinedIcon sx={{ "color": "inherit" }} />
                 <input type='text' placeholder='Search Artist/Podcast'
                     style={{ "border": "none", "outline": "none", "width": "100%", "background": "inherit", "color": "inherit" }}
                     value={searched}
                     onChange={(e) => handleChange(e)} />
-            </Search_whole>
+            </SearchWhole>
 
             </div>
             {searched === "" ?
