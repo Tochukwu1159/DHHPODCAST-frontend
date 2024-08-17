@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useGetPodcastCategories } from '../api/podcastCategories';
 import "./AddPodcastForm.css"
 import { useCreatePodcast } from '../api/podcast';
@@ -12,10 +11,10 @@ function AddPodcastForm() {
     categoryId: ''
   });
 
-  const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b2NodWt3dS51ZG9jaHVrd3VjQGdtYWlsLmNvbSIsImlhdCI6MTcxMjgxMDAxNywiZXhwIjoxNzEyODY3NjE3fQ.SW9hKL5evYptcqV1ZD1HKSEzOPhtRlsOwFVJkhZTbKQ";
+  // const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b2NodWt3dS51ZG9jaHVrd3VjQGdtYWlsLmNvbSIsImlhdCI6MTcxMjgxMDAxNywiZXhwIjoxNzEyODY3NjE3fQ.SW9hKL5evYptcqV1ZD1HKSEzOPhtRlsOwFVJkhZTbKQ";
 
   const { data: categories, isLoading: loading, isError: error } = useGetPodcastCategories();
-  const {mutate: createPodcast, isPending: podcastPending} = useCreatePodcast()
+  const {mutate: createPodcast} = useCreatePodcast()
 
 
   const handleInputChange = (e) => {

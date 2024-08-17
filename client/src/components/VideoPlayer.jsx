@@ -1,6 +1,6 @@
 import { CloseRounded } from '@mui/icons-material';
 import { Modal } from '@mui/material';
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 // import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 // import PauseIcon from '@mui/icons-material/Pause';
@@ -39,12 +39,12 @@ position: relative;
 padding: 10px;
 `;
 
-const Title = styled.div`
-  font-size: 22px;
-  font-weight: 500;
-  color: ${({ theme }) => theme.text_primary};
-  margin: 12px 20px;
-`;
+// const Title = styled.div`
+//   font-size: 22px;
+//   font-weight: 500;
+//   color: ${({ theme }) => theme.text_primary};
+//   margin: 12px 20px;
+// `;
 
 const Videoplayer = styled.video`
     height: 100%;

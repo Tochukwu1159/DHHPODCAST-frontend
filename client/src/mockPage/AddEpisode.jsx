@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useGetPodcastpodcasts } from '../api/podcastCategories';
+// import axios from 'axios';
+// import { useGetPodcastpodcasts } from '../api/podcastCategories';
 import "./AddPodcastForm.css"
-import { useAllGetPodcast, useCreatePodcast } from '../api/podcast';
+import { useAllGetPodcast } from '../api/podcast';
 import { useCreateEpisode } from '../api/episodes';
 
 function AddEpisodeForm() {
@@ -13,11 +13,11 @@ function AddEpisodeForm() {
     podcastId: ''
   });
 
-  const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b2NodWt3dS51ZG9jaHVrd3VjQGdtYWlsLmNvbSIsImlhdCI6MTcxMjgxMDAxNywiZXhwIjoxNzEyODY3NjE3fQ.SW9hKL5evYptcqV1ZD1HKSEzOPhtRlsOwFVJkhZTbKQ";
+  // const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b2NodWt3dS51ZG9jaHVrd3VjQGdtYWlsLmNvbSIsImlhdCI6MTcxMjgxMDAxNywiZXhwIjoxNzEyODY3NjE3fQ.SW9hKL5evYptcqV1ZD1HKSEzOPhtRlsOwFVJkhZTbKQ";
 
   const { data: podcasts, isLoading: loading, isError: error } = useAllGetPodcast();
 
-  const {mutate: createPodcast, isPending: podcastPending} = useCreateEpisode()
+  const {mutate: createPodcast} = useCreateEpisode()
 
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;

@@ -4,7 +4,6 @@ import styled from 'styled-components';
 // import { getMostPopularPodcast } from '../api/index';
 // import { getPodcastByCategory } from '../api';
 import { PodcastCard } from '../components/PodcastCard.jsx'
-import { getUsers } from '../api/index';
 import { Link } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
 import { useGetAllFavoritePodcast } from '../api/favoritePodcast';
@@ -88,7 +87,7 @@ width: 100%;
 
 const Dashboard = ({ setSignInOpen }) => {
   // const [mostPopular, setMostPopular] = useState([]);
-  const [user, setUser] = useState();
+  const [user] = useState();
 
   const [loading] = useState(false);
 
@@ -128,7 +127,7 @@ const Dashboard = ({ setSignInOpen }) => {
   }, [user])
 
 
-  const token = localStorage.getItem("podstreamtoken");
+  // const token = localStorage.getItem("podstreamtoken");
   // const getUser = async () => {
   //   await getUsers(token).then((res) => {
   //     setUser(res.data)

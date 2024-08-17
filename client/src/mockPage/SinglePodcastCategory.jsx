@@ -1,7 +1,7 @@
 import React from 'react';
 import { useGetPodcastCategoryById } from '../api/podcastCategories';
 import "./podcastCategoryList.css"
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import "./singlePodcastCategoryList.css"
 import { useState } from 'react';
 import UpdateCategoryForm from './UpdateCategoryForm';
@@ -10,7 +10,7 @@ import UpdateCategoryForm from './UpdateCategoryForm';
 
 function SinglePodcastCategory() {
     const { categoryId } = useParams()
-    const { data: category, isLoading: loading, isError: error } = useGetPodcastCategoryById(categoryId);
+    const { data: category } = useGetPodcastCategoryById(categoryId);
 
     const [showForm, setShowForm] = useState(false)
 

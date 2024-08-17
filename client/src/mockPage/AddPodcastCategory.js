@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useCreatePodcastCategories } from '../api/podcastCategories';
 
 import './AddPodcastCategory.css';
@@ -7,7 +6,7 @@ import { useGetAllPlans } from '../api/Plans';
 
 function AddPodcastCategory() {
 
-const {mutate: createPodcast, isPending: podcastPending} = useCreatePodcastCategories()
+const {mutate: createPodcast} = useCreatePodcastCategories()
 const { data: allPlans, isLoading: plansLoading, isError: plansError } = useGetAllPlans();
 
   const [formData, setFormData] = useState({

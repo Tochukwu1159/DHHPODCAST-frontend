@@ -4,7 +4,7 @@ import './PlanForm.css'; // Import your CSS file
 
 const PlanForm = () => {
   const [planName, setPlanName] = useState('');
-  const {mutate: createPlan, isPending: polanPending} = useCreatePlan()
+  const {mutate: createPlan} = useCreatePlan()
   const handleSubmit = async (event) => {
     event.preventDefault();
     let newPlan = (JSON.stringify({ name: planName }))

@@ -133,7 +133,7 @@ const Profile = () => {
             getUser();
             // setName(user?.name.split("")[0].toUpperCase());
         }
-    }, [currentUser])
+    }, [currentUser, getUser])
 
 
     return (

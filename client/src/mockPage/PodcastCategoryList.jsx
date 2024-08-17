@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 
 function PodcastCategoryList() {
-  const { data: categories, isLoading: loading, isError: error } = useGetPodcastCategories(); 
+  const { data: categories } = useGetPodcastCategories(); 
   return (
     <div className="podcast-list-container">
       <div>hello</div>

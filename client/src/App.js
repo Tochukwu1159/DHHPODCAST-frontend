@@ -58,12 +58,12 @@ function App() {
   const {openplayer,type, episode, podid, currenttime,index} = useSelector((state) => state.audioplayer);
   const {opensi} =  useSelector((state) => state.signin);
   const [SignUpOpen, setSignUpOpen] = useState(false);
-  const [SignInOpen, setSignInOpen] = useState(false);
+  const [, setSignInOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(true);
-  const [uploadOpen, setUploadOpen] = useState(false);
+  const [, setUploadOpen] = useState(false);
 
 
-  const { currentUser } = useSelector(state => state.user);
+  // const { currentUser } = useSelector(state => state.user);
   const dispatch = useDispatch()
     //set the menuOpen state to false if the screen size is less than 768px
     useEffect(() => {
@@ -83,7 +83,7 @@ function App() {
       dispatch(
         closeSignin()
       )
-    },[])
+    },[dispatch])
 
   return (
 

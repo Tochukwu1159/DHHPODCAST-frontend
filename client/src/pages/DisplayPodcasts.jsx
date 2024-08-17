@@ -61,8 +61,8 @@ color: ${({ theme }) => theme.text_primary};
 const DisplayPodcasts = () => {
     const { type } = useParams();
     // const [podcasts, setPodcasts] = useState([]);
-    const [string, setString] = useState("");
-    const dispatch = useDispatch();
+    const [string] = useState("");
+    // const dispatch = useDispatch();
     // const [Loading, setLoading] = useState(false);
 
     // const mostPopular = async () => {
@@ -121,7 +121,7 @@ const DisplayPodcasts = () => {
 
     // }, [])
 
-    const {data: PodcastByName, isLoading:Loading, error:podcastError} =  useGetPodcastByCategoryName(type);
+    const {data: PodcastByName, isLoading:Loading} =  useGetPodcastByCategoryName(type);
     
     const podcasts = PodcastByName?.podcast;
     return (
