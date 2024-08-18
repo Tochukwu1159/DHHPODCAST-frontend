@@ -108,7 +108,7 @@ const Dashboard = ({ setSignInOpen }) => {
   // const { data: sports, isLoading: loadingSports, sportsError, refetch:spoRefetch  } = useGetPodcastByCategoryName("Sports");
 
   const { data: favoritePodcast, refetch:favRefetch } = useGetAllFavoritePodcast();
-  const { data: comedy,  refetch: comRefetch } = useGetPodcastByCategoryName("gfgvxhgvxhgvsx");
+  const { data: comedy,  refetch: comRefetch } = useGetPodcastByCategoryName("Comedy");
   const { data: crime,  refetch:criRefetch  } = useGetPodcastByCategoryName("Crime");
   const { data: culture, refetch:culRefetch  } = useGetPodcastByCategoryName("Culture");
   const { data: development, refetch:devRefetch  } = useGetPodcastByCategoryName("Development");
@@ -173,7 +173,7 @@ const Dashboard = ({ setSignInOpen }) => {
           </FilterContainer>
           <FilterContainer>
             <Topic>Comedy
-              <Link to={`/showpodcasts/comedy`} style={{ textDecoration: "none" }}>
+              <Link to={`/showpodcasts/Comedy`} style={{ textDecoration: "none" }}>
                 <Span>Show All</Span>
               </Link>
             </Topic>
@@ -184,7 +184,7 @@ const Dashboard = ({ setSignInOpen }) => {
             </Podcasts>
           </FilterContainer>
           <FilterContainer>
-            <Link to={`/showpodcasts/news`} style={{ textDecoration: "none" }}>
+            <Link to={`/showpodcasts/News`} style={{ textDecoration: "none" }}>
               <Topic>News
                 <Span>Show All</Span>
               </Topic>
@@ -196,7 +196,7 @@ const Dashboard = ({ setSignInOpen }) => {
             </Podcasts>
           </FilterContainer>
           <FilterContainer>
-            <Link to={`/showpodcasts/crime`} style={{ textDecoration: "none" }}>
+            <Link to={`/showpodcasts/Crime`} style={{ textDecoration: "none" }}>
               <Topic>Crime
                 <Span>Show All</Span>
               </Topic>
@@ -208,7 +208,7 @@ const Dashboard = ({ setSignInOpen }) => {
             </Podcasts>
           </FilterContainer>
           <FilterContainer>
-            <Link to={`/showpodcasts/sports`} style={{ textDecoration: "none" }}>
+            <Link to={`/showpodcasts/Sports`} style={{ textDecoration: "none" }}>
               <Topic>Sports
                 <Span>Show All</Span>
               </Topic>
@@ -220,7 +220,7 @@ const Dashboard = ({ setSignInOpen }) => {
             </Podcasts>
           </FilterContainer>
           <FilterContainer>
-            <Link to={`/showpodcasts/culture`} style={{ textDecoration: "none" }}>
+            <Link to={`/showpodcasts/Culture`} style={{ textDecoration: "none" }}>
               <Topic>Cultures
                 <Span>Show All</Span>
               </Topic>
@@ -232,7 +232,7 @@ const Dashboard = ({ setSignInOpen }) => {
             </Podcasts>
           </FilterContainer>
           <FilterContainer>
-            <Link to={`/showpodcasts/development`} style={{ textDecoration: "none" }}>
+            <Link to={`/showpodcasts/Development`} style={{ textDecoration: "none" }}>
               <Topic>Developments
                 <Span>Show All</Span>
               </Topic>
@@ -244,7 +244,7 @@ const Dashboard = ({ setSignInOpen }) => {
             </Podcasts>
           </FilterContainer>
           <FilterContainer>
-            <Link to={`/showpodcasts/education`} style={{ textDecoration: "none" }}>
+            <Link to={`/showpodcasts/Education`} style={{ textDecoration: "none" }}>
               <Topic>Educations
                 <Span>Show All</Span>
               </Topic>
@@ -256,7 +256,7 @@ const Dashboard = ({ setSignInOpen }) => {
             </Podcasts>
           </FilterContainer>
           <FilterContainer>
-            <Link to={`/showpodcasts/health`} style={{ textDecoration: "none" }}>
+            <Link to={`/showpodcasts/Health`} style={{ textDecoration: "none" }}>
               <Topic>Health
                 <Span>Show All</Span>
               </Topic>
@@ -268,7 +268,7 @@ const Dashboard = ({ setSignInOpen }) => {
             </Podcasts>
           </FilterContainer>
           <FilterContainer>
-            <Link to={`/showpodcasts/sport`} style={{ textDecoration: "none" }}>
+            <Link to={`/showpodcasts/Sport`} style={{ textDecoration: "none" }}>
               <Topic>Educations
                 <Span>Show All</Span>
               </Topic>
@@ -280,7 +280,7 @@ const Dashboard = ({ setSignInOpen }) => {
             </Podcasts>
           </FilterContainer>
           <FilterContainer>
-            <Link to={`/showpodcasts/history`} style={{ textDecoration: "none" }}>
+            <Link to={`/showpodcasts/History`} style={{ textDecoration: "none" }}>
               <Topic>Histories
                 <Span>Show All</Span>
               </Topic>
@@ -292,7 +292,7 @@ const Dashboard = ({ setSignInOpen }) => {
             </Podcasts>
           </FilterContainer>
           <FilterContainer>
-            <Link to={`/showpodcasts/religion`} style={{ textDecoration: "none" }}>
+            <Link to={`/showpodcasts/Religion`} style={{ textDecoration: "none" }}>
               <Topic>Religions
                 <Span>Show All</Span>
               </Topic>
@@ -304,7 +304,7 @@ const Dashboard = ({ setSignInOpen }) => {
             </Podcasts>
           </FilterContainer>
           <FilterContainer>
-            <Link to={`/showpodcasts/science`} style={{ textDecoration: "none" }}>
+            <Link to={`/showpodcasts/Science`} style={{ textDecoration: "none" }}>
               <Topic>Science
                 <Span>Show All</Span>
               </Topic>

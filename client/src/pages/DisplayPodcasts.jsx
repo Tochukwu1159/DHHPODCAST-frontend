@@ -60,6 +60,13 @@ color: ${({ theme }) => theme.text_primary};
 
 const DisplayPodcasts = () => {
     const { type } = useParams();
+   
+    const capitalizeFirstLetter = (str) => {
+        if (!str) return ''; // handle if type is undefined or empty
+        return str.charAt(0).toUpperCase() + str.slice(1);
+      };
+      
+      const capitalizedType = capitalizeFirstLetter(type);
     // const [podcasts, setPodcasts] = useState([]);
     const [string] = useState("");
     // const dispatch = useDispatch();
@@ -121,7 +128,7 @@ const DisplayPodcasts = () => {
 
     // }, [])
 
-    const {data: PodcastByName, isLoading:Loading} =  useGetPodcastByCategoryName(type);
+    const {data: PodcastByName, isLoading:Loading} =  useGetPodcastByCategoryName(capitalizedType);
     
     const podcasts = PodcastByName?.podcast;
     return (

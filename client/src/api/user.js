@@ -1,220 +1,199 @@
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import {
-  useMutation,
-  useQuery,
-} from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { queryClient } from "..";
 import { useNavigate } from 'react-router-dom';
-import { token } from "./index1";
+import { axiosInstance, token } from "./index1";
 
+// Fetch all users
 export function useGetAllUsers() {
     return useQuery({
         queryKey: ['user-profile'],
-        queryFn: function () {
-            const result = axios.get('http://localhost:8081/api/v1/users/getAll', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-            console.log('result', result);
-            return result.then(response => response.data);
+        queryFn: async () => {
+            const result = await axiosInstance.get('/users/getAll');
+            return result.data;
         }
     });
 }
 
+// Create a new admin user
 export function useCreateUser() {
     return useMutation({
-        mutationFn: (payload) => axios.post('http://localhost:8081/api/v1/users/admin', payload, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data'     
-            }
-        }),
-        onSuccess: function () {
+        mutationFn: async (payload) => {
+            await axiosInstance.post('/users/admin', payload, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+        },
+        onSuccess: () => {
             toast.success('Admin added successfully');
         },
-        onError: function (error) {
-            console.log('there is error', error)
+        onError: (error) => {
+            console.error('Error adding admin:', error);
         },
-        onSettled: function () {
-            queryClient.invalidateQueries({ queryKey: ["user-profile"] });
-        },
+        onSettled: () => {
+            queryClient.invalidateQueries(['user-profile']);
+        }
     });
 }
 
+// Create a new regular user (subscriber)
 export function useCreateAdmin() {
     const navigate = useNavigate();
 
     return useMutation({
-        mutationFn: (payload) => axios.post('http://localhost:8081/api/v1/users/subscriber', payload, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data'     
-            }
-        }),
-        onSuccess: function () {
+        mutationFn: async (payload) => {
+            await axiosInstance.post('/users/subscriber', payload, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+        },
+        onSuccess: () => {
             toast.success('User added successfully');
             navigate('/login');
         },
-        onError: function (error) {
-            console.log('there is error', error);
+        onError: (error) => {
+            console.error('Error adding user:', error);
         },
-        onSettled: function () {
-            queryClient.invalidateQueries({ queryKey: ["user-profile"] });
-        },
+        onSettled: () => {
+            queryClient.invalidateQueries(['user-profile']);
+        }
     });
 }
 
+// User login
 export function useLoginUser() {
     return useMutation({
-        mutationFn: (payload) => axios.post('http://localhost:8081/api/v1/users/loginUser', payload),
-        onSuccess: function (response) {
-            const { user } = response.data;
+        mutationFn: async (payload) => {
+            const result = await axiosInstance.post('/users/loginUser', payload);
+            return result.data;
+        },
+        onSuccess: (response) => {
+            const { user } = response;
             localStorage.setItem('user', JSON.stringify(user));
             toast.success('User logged in successfully');
         },
-        onError: function (error) {
-            console.log('there is error', error);
+        onError: (error) => {
+            console.error('Error logging in:', error);
             toast.error('Failed to log in');
         },
-        onSettled: function () {
-            queryClient.invalidateQueries({ queryKey: ["user-profile"] });
-        },
+        onSettled: () => {
+            queryClient.invalidateQueries(['user-profile']);
+        }
     });
 }
 
-
+// Update user information
 export function useUpdateUser() {
     return useMutation({
-        mutationFn: (payload) => axios.put(`http://localhost:8081/api/v1/users/edit`,
-
-        { ...payload,
-    
-            firstName:payload.firstName,
-            lastName:payload.lastName,
-             phoneNumber:payload.phoneNumber
-
-            }, {
-            headers: {
-                'Authorization': `Bearer ${token}`,   
-            }
-        }),
-        onSuccess: function () {
-            toast.success('User  updated successfully');
+        mutationFn: async (payload) => {
+            await axiosInstance.put('/users/edit', payload);
         },
-        onError: function (error) {
-            console.log('there is error', error)
+        onSuccess: () => {
+            toast.success('User updated successfully');
         },
-        onSettled: function () {
-            queryClient.invalidateQueries({ queryKey: ["user-profile"] });
+        onError: (error) => {
+            console.error('Error updating user:', error);
         },
+        onSettled: () => {
+            queryClient.invalidateQueries(['user-profile']);
+        }
     });
 }
 
+// Delete a user by ID
 export function useDeleteUser() {
     return useMutation({
-      mutationFn: (userId) => axios.delete(`http://localhost:8081/api/v1/users/delete/${userId}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,  
+        mutationFn: async (userId) => {
+            await axiosInstance.delete(`/users/delete/${userId}`);
+        },
+        onSuccess: () => {
+            toast.success('User deleted successfully');
+        },
+        onError: (error) => {
+            console.error('Error deleting user:', error);
+            toast.error('Error deleting user');
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries(['user-profile']);
         }
-      }),
-      onSuccess: function () {
-        toast.success('User deleted successfully');
-      },
-      onError: function (error) {
-        console.log('there is error', error);
-        toast.error('Error deleting user');
-      },
-      onSettled: function () {
-        queryClient.invalidateQueries({ queryKey: ["user-profile"] });
-      },
     });
-  }
+}
 
+// Reset user password
 export function useResetPassword() {
     return useMutation({
-        mutationFn: (payload) => axios.post('http://localhost:8081/api/v1/users/reset-password', payload, {
-            headers: {
-                'Authorization': `Bearer ${token}`,    
-            }
-        }),
-        onSuccess: function () {
+        mutationFn: async (payload) => {
+            await axiosInstance.post('/users/reset-password', payload);
+        },
+        onSuccess: () => {
             toast.success('Password changed successfully');
         },
-        onError: function (error) {
-            console.log('there is error', error)
+        onError: (error) => {
+            console.error('Error resetting password:', error);
         },
-        onSettled: function () {
-            queryClient.invalidateQueries({ queryKey: ["user-profile"] });
-        },
-    });
-}
-
-export function useResetPasswordWithoutToken() {
-    return useMutation({
-        mutationFn: (payload) => axios.post('http://localhost:8081/api/v1/users/reset-passwords', payload, {
-            headers: {
-                'Authorization': `Bearer ${token}`,    
-            }
-        }),
-        onSuccess: function () {
-            toast.success('Password changed successfully');
-        },
-        onError: function (error) {
-            console.log('there is error', error)
-        },
-        onSettled: function () {
-            queryClient.invalidateQueries({ queryKey: ["user-profile"] });
-        },
-    });
-}
-
-export function useForgotPassword() {
-    return useMutation({
-        mutationFn: (payload) => axios.post('http://localhost:8081/api/v1/users/forgot-password', payload, {
-            headers: {
-                'Authorization': `Bearer ${token}`,    
-            }
-        }),
-        onSuccess: function () {
-            toast.success('Email sent successfully, please check your email');
-        },
-        onError: function (error) {
-            console.log('there is error', error)
-        },
-        onSettled: function () {
-            queryClient.invalidateQueries({ queryKey: ["user-profile"] });
-        },
-    });
-}
-//token as params
-export function useGetVerifyAccount(token) {
-    return useQuery({
-        queryKey: ['verify-user'],
-        queryFn: function () {
-            const result = axios.get(`http://localhost:8081/api/v1/users/verify?token={token}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-            });
-            console.log('result', result);
-            return result.then(response => response.data);
+        onSettled: () => {
+            queryClient.invalidateQueries(['user-profile']);
         }
     });
 }
-//token as params
-export function useGetResentVerify(token) {
+
+// Reset password without token
+export function useResetPasswordWithoutToken() {
+    return useMutation({
+        mutationFn: async (payload) => {
+            await axiosInstance.post('/users/reset-passwords', payload);
+        },
+        onSuccess: () => {
+            toast.success('Password changed successfully');
+        },
+        onError: (error) => {
+            console.error('Error resetting password:', error);
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries(['user-profile']);
+        }
+    });
+}
+
+// Forgot password
+export function useForgotPassword() {
+    return useMutation({
+        mutationFn: async (payload) => {
+            await axiosInstance.post('/users/forgot-password', payload);
+        },
+        onSuccess: () => {
+            toast.success('Email sent successfully, please check your email');
+        },
+        onError: (error) => {
+            console.error('Error sending email:', error);
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries(['user-profile']);
+        }
+    });
+}
+
+// Verify user account
+export function useGetVerifyAccount(verifyToken) {
     return useQuery({
         queryKey: ['verify-user'],
-        queryFn: function () {
-            const result = axios.get(`http://localhost:8081/api/v1/users/resend-verify?token={token}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-            });
-            console.log('result', result);
-            return result.then(response => response.data);
+        queryFn: async () => {
+            const result = await axiosInstance.get(`/users/verify?token=${verifyToken}`);
+            return result.data;
+        }
+    });
+}
+
+// Resend verification email
+export function useGetResentVerify(verifyToken) {
+    return useQuery({
+        queryKey: ['resend-verify-user'],
+        queryFn: async () => {
+            const result = await axiosInstance.get(`/users/resend-verify?token=${verifyToken}`);
+            return result.data;
         }
     });
 }

@@ -1,97 +1,73 @@
-import axios from "axios";
-import {
-  useMutation,
-  useQuery,
-} from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "./index1";
 import toast from "react-hot-toast";
 import { queryClient } from "..";
-import { token } from "./index1";
 
-
+// Fetch all subscriptions
 export function useGetAllSubscription() {
     return useQuery({
         queryKey: ['all_Subscriptions'],
-        queryFn: function () {
-            const result = axios.get('http://localhost:8081/api/v1/podcast/subscription-plans/all', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-            console.log('result', result);
-            return result.then(response => response.data);
+        queryFn: async () => {
+            const result = await axiosInstance.get('/podcast/subscription-plans/all');
+            return result.data;
         }
     });
 }
 
+// Create a new subscription
 export function useCreateSubscription() {
     return useMutation({
-        mutationFn: (payload) => axios.post('http://localhost:8081//api/v1/podcast/subscription-plans', payload, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                    
-            }
-        }),
-        onSuccess: function () {
+        mutationFn: async (payload) => {
+            await axiosInstance.post('/podcast/subscription-plans', payload);
+        },
+        onSuccess: () => {
             toast.success('Subscription added successfully');
         },
-        onError: function (error) {
-            console.log('there is error', error)
+        onError: (error) => {
+            console.error('Error creating subscription:', error);
         },
-        onSettled: function () {
-            queryClient.invalidateQueries({ queryKey: ["all_Subscriptions"] });
-        },
+        onSettled: () => {
+            queryClient.invalidateQueries(['all_Subscriptions']);
+        }
     });
 }
 
-//PARAM
+// Update a subscription
 export function useUpdateSubscription(params) {
     return useMutation({
-        mutationFn: (payload) => axios.put(`http://localhost:8081/api/v1/podcast/subscription-plans?idOrCode=${params}`,
-
-        { ...payload,
-             content:payload.content
-            }, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data'     
-            }
-        }),
-        onSuccess: function () {
-            toast.success('Subscription  added successfully');
+        mutationFn: async (payload) => {
+            await axiosInstance.put(`/podcast/subscription-plans?idOrCode=${params}`, payload, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
         },
-        onError: function (error) {
-            console.log('there is error', error)
+        onSuccess: () => {
+            toast.success('Subscription updated successfully');
         },
-        onSettled: function () {
-            queryClient.invalidateQueries({ queryKey: ["all_Subscriptions"] });
+        onError: (error) => {
+            console.error('Error updating subscription:', error);
         },
+        onSettled: () => {
+            queryClient.invalidateQueries(['all_Subscriptions']);
+        }
     });
 }
 
+// Delete a subscription by ID
 export function useDeleteSubscriptionById() {
-    return useMutation(
-      (id) =>
-        axiosInstance.delete(`http://localhost:8081/api/v1/subscription-Subscriptions/${id}`),
-      {
-        onSuccess: function (data) {
-        //   showNotification({
-        //     title: "Operation successful",
-        //     message: "User List deleted successfully",
-        //     color: "green",
-        //   });
+    return useMutation({
+        mutationFn: async (id) => {
+            await axiosInstance.delete(`/podcast/subscription-plans/${id}`);
         },
-        onError: function (data) {
-          const response = data.response?.data;
-        //   showNotification({
-        //     message: response?.detail || "Unable to delete Subscription ",
-        //     color: "red",
-        //   });
+        onSuccess: () => {
+            toast.success('Subscription deleted successfully');
         },
-        onSettled: function () {
-          queryClient.invalidateQueries(["all_Subscriptions"]);
+        onError: (error) => {
+            console.error('Error deleting subscription:', error);
         },
-      }
-    );
-  }
-
+        onSettled: () => {
+            queryClient.invalidateQueries(['all_Subscriptions']);
+        }
+    });
+}

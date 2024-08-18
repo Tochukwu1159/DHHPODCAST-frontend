@@ -1,158 +1,135 @@
-import axios from "axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "./index1";
 import toast from "react-hot-toast";
 import { queryClient } from "..";
 import { showNotification } from "@mantine/notifications";
-import { token } from "./index1";
 
-
-
+// Fetch all podcast categories
 export function useGetPodcastCategories() {
-  return useQuery({
-    queryKey: ["podcast-categories"],
-    queryFn: function () {
-      const result = axiosInstance.get("/podcast-categories",{
-        headers: {
-            'Authorization': `Bearer ${token}`
+    return useQuery({
+        queryKey: ["podcast-categories"],
+        queryFn: async () => {
+            const result = await axiosInstance.get("/podcast-categories");
+            return result.data;
         }
-      });
-      
-      return result.then((response) => response.data);
-    },
-  });
-}
-
-
-
-export function useCreatePodcastCategories() {
-    
-    return useMutation({
-        mutationFn: (payload) => axios.post('http://localhost:8081/api/v1/podcast-categories', payload, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data'     
-            }
-        }),
-        onSuccess: function () {
-            showNotification({
-              title: "Operation Successful",
-              message: `Podcast Category created successfully!`,
-              color: "green",
-            });
-          },
-          onError: function (error) {
-            // console.log("errror", error);
-    
-            return showNotification({
-              title: "An error occured",
-              message: "Unable to update global list",
-              color: "red",
-            });
-          },
-          onSettled: function () {
-            queryClient.invalidateQueries(["podcast-categories"]);
-          //   cb && cb();
-          },
     });
 }
 
+// Create a new podcast category
+export function useCreatePodcastCategories() {
+    return useMutation({
+        mutationFn: async (payload) => {
+            const formData = new FormData();
+            for (const key in payload) {
+                formData.append(key, payload[key]);
+            }
+            const result = await axiosInstance.post('/podcast-categories', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            return result.data;
+        },
+        onSuccess: () => {
+            showNotification({
+                title: "Operation Successful",
+                message: "Podcast Category created successfully!",
+                color: "green"
+            });
+        },
+        onError: (error) => {
+            showNotification({
+                title: "An error occurred",
+                message: "Unable to create podcast category",
+                color: "red"
+            });
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries(["podcast-categories"]);
+        }
+    });
+}
+
+// Fetch podcast category by ID
 export function useGetPodcastCategoryById(id) {
     return useQuery({
         queryKey: ['podcast-categories', id],
-        queryFn: function () {
-            const result = axios.get(`http://localhost:8081/api/v1/podcast-categories/single/${id}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-            
-            return result.then(response => response.data);
+        queryFn: async () => {
+            const result = await axiosInstance.get(`/podcast-categories/single/${id}`);
+            return result.data;
         }
     });
 }
 
+// Fetch podcasts by category name
 export function useGetPodcastByCategoryName(name) {
-  return useQuery({
-      queryKey: ['podcast-category', name],
-      queryFn: function () {
-          const result = axios.get(`http://localhost:8081/api/v1/podcasts/category?name=${name}`, {
-              headers: {
-                  'Authorization': `Bearer ${token}`
-              }
-          });
-          console.log('result', result);
-          return result.then(response => response.data);
-      }
-  });
+    return useQuery({
+        queryKey: ['podcast-category', name],
+        queryFn: async () => {
+            const result = await axiosInstance.get(`/podcasts/category?name=${name}`);
+            return result.data;
+        }
+    });
 }
 
-
-//param
-export function useUpdatePodcastCategory(params) {
+// Update a podcast category
+export function useUpdatePodcastCategory(id) {
     return useMutation({
-        mutationFn: (payload) => axios.put(`http://localhost:8081/api/v1/podcast-categories/${params}`,
-
-        { ...payload,
-    
-            name:payload.name,
-            imageFile:payload.imageFile,
-            description:payload.description,
-            userPlan:payload.userPlan
-
-            }, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data'     
+        mutationFn: async (payload) => {
+            const formData = new FormData();
+            for (const key in payload) {
+                formData.append(key, payload[key]);
             }
-        }
-        ),
-            
-            onSuccess: function () {
-              showNotification({
+            const result = await axiosInstance.put(`/podcast-categories/${id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            return result.data;
+        },
+        onSuccess: () => {
+            showNotification({
                 title: "Operation Successful",
-                message: `Global List updated successfully!`,
-                color: "green",
-              });
-            },
-            onError: function (error) {
-              // console.log("errror", error);
-      
-              return showNotification({
-                title: "An error occured",
-                message: "Unable to update global list",
-                color: "red",
-              });
-            },
-            onSettled: function () {
-              queryClient.invalidateQueries(["podcast-categories"]);
-            //   cb && cb();
-            },
-          
-    });}
+                message: "Podcast Category updated successfully!",
+                color: "green"
+            });
+        },
+        onError: (error) => {
+            showNotification({
+                title: "An error occurred",
+                message: "Unable to update podcast category",
+                color: "red"
+            });
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries(["podcast-categories"]);
+        }
+    });
+}
 
-export function useDeletePlanCategoryById() {
-    return useMutation(
-      (id) =>
-        axiosInstance.delete(`http://localhost:8081/api/v1/podcast-categories/${id}`),
-      {
-        onSuccess: function () {
-        //   showNotification({
-        //     title: "Operation successful",
-        //     message: "Podcast category deleted successfully",
-        //     color: "green",
-        //   });
+// Delete a podcast category by ID
+export function useDeletePodcastCategoryById() {
+    return useMutation({
+        mutationFn: async (id) => {
+            await axiosInstance.delete(`/podcast-categories/${id}`);
         },
-        onError: function (data) {
-          const response = data.response?.data;
-        //   showNotification({
-        //     message: response?.detail || "Unable to delete Podcast category ",
-        //     color: "red",
-        //   });
+        onSuccess: () => {
+            showNotification({
+                title: "Operation Successful",
+                message: "Podcast Category deleted successfully!",
+                color: "green"
+            });
         },
-        onSettled: function () {
-          queryClient.invalidateQueries(["all-podcast"]);
+        onError: (error) => {
+            const response = error.response?.data;
+            showNotification({
+                title: "An error occurred",
+                message: response?.detail || "Unable to delete podcast category",
+                color: "red"
+            });
         },
-      }
-    );
-  }
+        onSettled: () => {
+            queryClient.invalidateQueries(["podcast-categories"]);
+        }
+    });
+}

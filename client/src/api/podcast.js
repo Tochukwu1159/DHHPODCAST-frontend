@@ -1,146 +1,113 @@
-import axios from "axios";
-import {
-  useMutation,
-  useQuery,
-} from "@tanstack/react-query";
-import { axiosInstance } from "./index1";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { axiosInstance } from "./index1"; 
 import toast from "react-hot-toast";
 import { queryClient } from "..";
-
-import { token } from "./index1";
 
 export function useAllGetPodcast() {
     return useQuery({
         queryKey: ['all-podcast'],
-        queryFn: function () {
-            const result = axios.get('http://localhost:8081/api/v1/podcasts', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-            
-            return result.then(response => response.data);
+        queryFn: async () => {
+            const result = await axiosInstance.get('podcasts');
+            return result.data;
         }
     });
 }
+
 export function useGetPodcastByName(title) {
     return useQuery({
-        queryKey: ['podcast-By-name'],
-        queryFn: function () {
-            const result = axios.get(`http://localhost:8081/api/v1/podcast-categories/search/${title}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-         
-            return result.then(response => response.data);
+        queryKey: ['podcast-By-name', title],
+        queryFn: async () => {
+            const result = await axiosInstance.get(`podcast-categories/search/${title}`);
+            return result.data;
         }
     });
 }
 
 export function useGetPodcastByTitle(title) {
     return useQuery({
-        queryKey: ['podcast-By-title'],
-        queryFn: function () {
-            const result = axios.get(`http://localhost:8081/api/v1/podcasts/search?title=${title}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-          
-            return result.then(response => response.data);
+        queryKey: ['podcast-By-title', title],
+        queryFn: async () => {
+            const result = await axiosInstance.get(`podcasts/search?title=${title}`);
+            return result.data;
         }
     });
 }
 
 export function useGetPodcastById(id) {
     return useQuery({
-        queryKey: ['podcast-ById'],
-        queryFn: function () {
-            const result = axios.get(`http://localhost:8081/api/v1/podcast-categories/${id}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-           
-            return result.then(response => response.data);
+        queryKey: ['podcast-ById', id],
+        queryFn: async () => {
+            const result = await axiosInstance.get(`podcast-categories/${id}`);
+            return result.data;
         }
     });
 }
 
 export function useCreatePodcast() {
     return useMutation({
-        mutationFn: (payload) => axios.post('http://localhost:8081/api/v1/podcasts', payload, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data'     
+        mutationFn: async (payload) => {
+            const formData = new FormData();
+            for (const key in payload) {
+                formData.append(key, payload[key]);
             }
-        }),
-        onSuccess: function () {
-            toast.success('Rate added successfully');
+            const result = await axiosInstance.post('podcasts', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            return result.data;
         },
-        onError: function (error) {
-            console.log('there is error', error)
+        onSuccess: () => {
+            toast.success('Podcast added successfully');
         },
-        onSettled: function () {
-            queryClient.invalidateQueries({ queryKey: ["podcast-categories"] });
+        onError: (error) => {
+            console.log('Error:', error);
         },
+        onSettled: () => {
+            queryClient.invalidateQueries(['all-podcast']);
+        }
     });
 }
 
-//params
-export function useUpdatePodcast(params) {
+export function useUpdatePodcast(id) {
     return useMutation({
-        mutationFn: (payload) => axios.put(`http://localhost:8081/api/v1/podcasts/${params}`,
-
-        { ...payload,
-    
-             imageFile:payload.imageFile,
-             title:payload.title,
-             description:payload.description,
-             categoryId:payload.categoryId
-
-            }, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data'     
+        mutationFn: async (payload) => {
+            const formData = new FormData();
+            for (const key in payload) {
+                formData.append(key, payload[key]);
             }
-        }),
-        onSuccess: function () {
-            toast.success('Podcast  updated successfully');
+            const result = await axiosInstance.put(`podcasts/${id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            return result.data;
         },
-        onError: function (error) {
-            console.log('there is error', error)
+        onSuccess: () => {
+            toast.success('Podcast updated successfully');
         },
-        onSettled: function () {
-            queryClient.invalidateQueries({ queryKey: ["all-podcast"] });
+        onError: (error) => {
+            console.log('Error:', error);
         },
+        onSettled: () => {
+            queryClient.invalidateQueries(['all-podcast']);
+        }
     });
 }
 
-export function useDeletePlanById() {
-    return useMutation(
-      (id) =>
-        axiosInstance.delete(`http://localhost:8081/api/v1/podcasts/${id}`),
-      {
-        onSuccess: function (data) {
-        //   showNotification({
-        //     title: "Operation successful",
-        //     message: "Podcast deleted successfully",
-        //     color: "green",
-        //   });
+export function useDeletePodcastById() {
+    return useMutation({
+        mutationFn: async (id) => {
+            await axiosInstance.delete(`podcasts/${id}`);
         },
-        onError: function (data) {
-          const response = data.response?.data;
-        //   showNotification({
-        //     message: response?.detail || "Unable to delete Podcast ",
-        //     color: "red",
-        //   });
+        onSuccess: () => {
+            toast.success('Podcast deleted successfully');
         },
-        onSettled: function () {
-          queryClient.invalidateQueries(["all-podcast"]);
+        onError: (error) => {
+            console.log('Error:', error);
         },
-      }
-    );
-  }
-
+        onSettled: () => {
+            queryClient.invalidateQueries(['all-podcast']);
+        }
+    });
+}

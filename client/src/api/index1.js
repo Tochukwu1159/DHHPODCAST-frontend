@@ -2,23 +2,18 @@ import { queryClient } from "..";
 // import { APP_TOKENS } from "@/utils/constants";
 import axios from "axios";
 
-const BASE_URL="http://localhost:8081/api/v1"
 
+const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaHJpc3Rpbm90b2NodWt3dUBnbWFpbC5jb20iLCJpYXQiOjE3MjM5OTU3NTMsImV4cCI6MTcyNDA1MzM1M30._uahagr3AMcK1TiXrsuQZGLwxEYvGqXtE38Vao60aQ8"
 
 
 export const axiosInstance = axios.create({
-//   baseURL: process.env.BASE_URL,
-baseURL: BASE_URL
+    baseURL: "https://dhhpodcast-cau6.onrender.com/api/v1",
+    headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    }
 });
-export const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b2NodWt3dS51ZG9jaHVrd3VjQGdtYWlsLmNvbSIsImlhdCI6MTcyMzg2NzU0MCwiZXhwIjoxNzIzOTI1MTQwfQ.UxE-XXKXe59Ydyaiu5JnHN6uTOmc9qpIzJZb_aF84ps"
-// export const token ="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b2NodWt3dS51ZG9jaHVrdzMxQGdtYWlsLmNvbSIsImlhdCI6MTcyMjUxMzA0NywiZXhwIjoxNzIyNTcwNjQ3fQ.7oj2g_G1IwO_nQKHDT8PEMsKkOtQIpb_ymWeAj1VhNw";
 
-
-const addTokenToRequest = (request) => {
-//   const token = Cookies.get(APP_TOKENS.ACCESS_TOKEN);
-  request.headers.Authorization = `Bearer ${token}`;
-  return request;
-};
 
 // axiosInstance.interceptors.request.use(addTokenToRequest);
 

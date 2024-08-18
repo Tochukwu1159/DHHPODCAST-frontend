@@ -1,46 +1,27 @@
-import axios from "axios";
-import {
-  useMutation,
-  useQuery,
-} from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import toast from 'react-hot-toast';
 import { queryClient } from "..";
-import { token } from "./index1";
-
-
+import { axiosInstance } from "./index1"; // Import axiosInstance
 
 export function useGetAllFavoritePodcast() {
     return useQuery({
         queryKey: ['favorite-podcast'],
         queryFn: function () {
-            const result = axios.get('http://localhost:8081/api/v1/likes/favorite', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-            });
-          
-            return result.then(response => response.data);
+            return axiosInstance.get('/likes/favorite')
+                .then(response => response.data);
         }
     });
 }
-//param podcastId
+
 export function useAddToFavorite(podcastId) {
-    console.log("bbbbhybbhbhyb")
     return useMutation({
-        mutationFn: () => axios.post(`http://localhost:8081/api/v1/likes/${podcastId}`, null, 
-        {
-            headers: {
-                'Authorization': `Bearer ${token}`,   
-            }
-        }),
+        mutationFn: () => axiosInstance.post(`/likes/${podcastId}`, null),
         onSuccess: function () {
             toast.success('Podcast added successfully');
+            queryClient.invalidateQueries({ queryKey: ["favorite-podcast"] });
         },
         onError: function (error) {
-            console.log('there is error', error)
-        },
-        onSettled: function () {
-            queryClient.invalidateQueries({ queryKey: ["favorite-podcast"] });
+            console.log('Error:', error);
         },
     });
 }
