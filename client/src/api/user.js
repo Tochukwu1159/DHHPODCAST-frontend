@@ -5,6 +5,7 @@ import { queryClient } from "..";
 import { useNavigate } from 'react-router-dom';
 import { axiosInstance, token } from "./index1";
 
+
 // Fetch all users
 export function useGetAllUsers() {
     return useQuery({
@@ -21,9 +22,6 @@ export function useCreateUser() {
     return useMutation({
         mutationFn: async (payload) => {
             await axiosInstance.post('/users/admin', payload, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
             });
         },
         onSuccess: () => {
@@ -40,14 +38,12 @@ export function useCreateUser() {
 
 // Create a new regular user (subscriber)
 export function useCreateAdmin() {
+   
     const navigate = useNavigate();
 
     return useMutation({
         mutationFn: async (payload) => {
             await axiosInstance.post('/users/subscriber', payload, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
             });
         },
         onSuccess: () => {
@@ -65,6 +61,8 @@ export function useCreateAdmin() {
 
 // User login
 export function useLoginUser() {
+    const navigate = useNavigate();
+
     return useMutation({
         mutationFn: async (payload) => {
             const result = await axiosInstance.post('/users/loginUser', payload);
@@ -74,6 +72,8 @@ export function useLoginUser() {
             const { user } = response;
             localStorage.setItem('user', JSON.stringify(user));
             toast.success('User logged in successfully');
+            console.log("aaaaaaaaaaaa")
+            navigate('/');
         },
         onError: (error) => {
             console.error('Error logging in:', error);

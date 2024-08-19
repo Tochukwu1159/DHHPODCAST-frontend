@@ -3,7 +3,7 @@ import { queryClient } from "..";
 import axios from "axios";
 
 
-const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaHJpc3Rpbm90b2NodWt3dUBnbWFpbC5jb20iLCJpYXQiOjE3MjM5OTU3NTMsImV4cCI6MTcyNDA1MzM1M30._uahagr3AMcK1TiXrsuQZGLwxEYvGqXtE38Vao60aQ8"
+const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaHJpc3Rpbm90b2NodWt3dUBnbWFpbC5jb20iLCJpYXQiOjE3MjQwNTYxNTEsImV4cCI6MTcyNDExMzc1MX0.1prnAD766mFSwhDjuSkFS4LFaawz6QvTtxY_3xnBvK0"
 
 
 export const axiosInstance = axios.create({

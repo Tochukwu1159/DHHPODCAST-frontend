@@ -187,8 +187,6 @@ const {mutate: addToView, isPending: viewPending} = useCreatePodcastView(favouri
   }
 
 
-  console.log("favouriteId", favouriteId)
-
   return (
     <div    onClick={handleAddToView}>
     <Card to={`/podcast/${podcast.id}`} >

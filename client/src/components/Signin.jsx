@@ -1,4 +1,5 @@
 import {
+    Block,
     CloseRounded,
     EmailRounded,
     Visibility,
@@ -10,12 +11,11 @@ import {
   import styled from "styled-components";
   import { IconButton, Modal } from "@mui/material";
   import CircularProgress from "@mui/material/CircularProgress";
-  import { loginFailure, loginSuccess } from "../redux/userSlice";
+  import { loginFailure, loginStart, loginSuccess } from "../redux/userSlice";
   import { openSnackbar } from "../redux/snackbarSlice";
   import { useDispatch } from "react-redux";
   import validator from "validator";
-  import {  googleSignIn, findUserByEmail } from "../api/index";
-  import OTP from "./OTP";
+  import { signIn, googleSignIn, findUserByEmail } from "../api/index";
   import { useGoogleLogin } from "@react-oauth/google";
   import axios from "axios";
   import { closeSignin } from "../redux/setSigninSlice";
