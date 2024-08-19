@@ -36,6 +36,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 999; /* Ensure the modal is on top */
 `;
 
 const Wrapper = styled.div`
@@ -200,9 +201,6 @@ const SignUp = ({ setSignUpOpen, setSignInOpen }) => {
       }
   }, [firstName, lastName, email, passwordCorrect, password, nameCorrect]);
 
-  // useEffect(() => {
-  //     createAccount();
-  // }, [otpVerified]);
 
   const validateEmail = () => {
       if (validator.isEmail(email)) {
